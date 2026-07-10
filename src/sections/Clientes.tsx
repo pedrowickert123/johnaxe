@@ -1,18 +1,26 @@
 import { motion } from "framer-motion";
+import aeroporto from "../assets/clients/aeroporto.png";
+import altus from "../assets/clients/altus.png";
+import braskem from "../assets/clients/braskem.png";
+import betanin from "../assets/clients/betanin.png";
+import gerdau from "../assets/clients/gerdau.png";
+import guardian from "../assets/clients/guardian.png";
+import iff from "../assets/clients/iff.png";
+import intertechne from "../assets/clients/intertechne.png";
+import stihl from "../assets/clients/stihl.png";
+import yara from "../assets/clients/yara.png";
 
-// Placeholders de texto — substituir pelos logos oficiais (SVG/PNG) de cada cliente.
 const CLIENTES = [
-  "YARA",
-  "Guardian Glass",
-  "IFF",
-  "Braskem",
-  "STIHL",
-  "Altus",
-  "Belium",
-  "JBS",
-  "Komputo",
-  "Intertechne",
-  "Porto Alegre Airport",
+  { name: "Porto Alegre Airport", logo: aeroporto },
+  { name: "Altus", logo: altus },
+  { name: "Braskem", logo: braskem },
+  { name: "Frigorífico Betanin", logo: betanin },
+  { name: "Gerdau", logo: gerdau },
+  { name: "Guardian Glass", logo: guardian },
+  { name: "IFF", logo: iff },
+  { name: "Intertechne", logo: intertechne },
+  { name: "STIHL", logo: stihl },
+  { name: "YARA", logo: yara },
 ];
 
 export function Clientes() {
@@ -34,12 +42,15 @@ export function Clientes() {
         >
           {CLIENTES.map((c) => (
             <div
-              key={c}
-              className="flex h-24 items-center justify-center rounded-lg border border-line bg-paper px-4 text-center shadow-edge transition-shadow hover:shadow-sharp"
+              key={c.name}
+              className="flex h-24 items-center justify-center overflow-hidden rounded-lg border border-line bg-paper p-2 text-center shadow-edge transition-shadow hover:shadow-sharp"
             >
-              <span className="text-sm font-semibold tracking-wide text-navy-500 lg:text-base">
-                {c}
-              </span>
+              <img
+                src={c.logo}
+                alt={c.name}
+                loading="lazy"
+                className="h-full w-full object-contain"
+              />
             </div>
           ))}
         </motion.div>
