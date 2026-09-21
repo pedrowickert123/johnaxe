@@ -7,6 +7,11 @@ import {
   Snowflake,
   type LucideIcon,
 } from "lucide-react";
+import petrochemical from "../assets/sectors/petrochemical.jpg";
+import steel from "../assets/sectors/steel.jpg";
+import metalworking from "../assets/sectors/metalworking.jpg";
+import food from "../assets/sectors/food.jpg";
+import meatpacking from "../assets/sectors/meatpacking.jpg";
 
 type Setor = {
   title: string;
@@ -14,32 +19,31 @@ type Setor = {
   img: string;
 };
 
-// Imagens genéricas por setor — trocar pelas oficiais do cliente.
 const SETORES: Setor[] = [
   {
     title: "Petroquímico",
     icon: Factory,
-    img: "https://images.unsplash.com/photo-1518364538800-6bae3c2ea0f2?auto=format&fit=crop&w=900&q=80",
+    img: petrochemical,
   },
   {
     title: "Siderúrgico",
     icon: Wrench,
-    img: "https://images.unsplash.com/photo-1565043666747-69f6646db940?auto=format&fit=crop&w=900&q=80",
+    img: steel,
   },
   {
     title: "Metal mecânico",
     icon: Cog,
-    img: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=900&q=80",
+    img: metalworking,
   },
   {
     title: "Alimentício",
     icon: Utensils,
-    img: "https://images.unsplash.com/photo-1581094288338-2314dddb7ece?auto=format&fit=crop&w=900&q=80",
+    img: food,
   },
   {
     title: "Frigorífico",
     icon: Snowflake,
-    img: "https://images.unsplash.com/photo-1606787620819-8bdf0c44c293?auto=format&fit=crop&w=900&q=80",
+    img: meatpacking,
   },
 ];
 
