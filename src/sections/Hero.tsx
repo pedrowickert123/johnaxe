@@ -12,10 +12,10 @@ export function Hero() {
         src={heroImg}
         alt=""
         aria-hidden
-        className="absolute inset-0 h-full w-full object-cover opacity-50"
+        className="absolute inset-0 h-full w-full object-cover opacity-90"
         loading="eager"
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-coal-900/70 via-coal-900/60 to-coal-900/90" />
+      <div className="absolute inset-0 bg-gradient-to-b from-coal-900/40 via-coal-900/30 to-coal-900/70" />
 
       <div className="container-x relative z-10">
         <div className="mx-auto max-w-3xl text-center">
