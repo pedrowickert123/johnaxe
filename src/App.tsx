@@ -7,6 +7,7 @@ import { Servicos } from "./sections/Servicos";
 import { Equipe } from "./sections/Equipe";
 import { Clientes } from "./sections/Clientes";
 import { Contato } from "./sections/Contato";
+import { Publications } from "./sections/Publications";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Servicos />
         <Equipe />
         <Clientes />
+        <Publications />
         <Contato />
       </main>
       <Footer />

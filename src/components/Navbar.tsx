@@ -12,6 +12,7 @@ const LEFT_ITEMS = [
 const RIGHT_ITEMS = [
   { label: "Equipe", href: "#equipe" },
   { label: "Clientes", href: "#clientes" },
+  { label: "Publicações", href: "#publications" },
   { label: "Contato", href: "#contato" },
 ];
 
