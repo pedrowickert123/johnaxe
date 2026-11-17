@@ -1,10 +1,8 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import type { Session } from "@supabase/supabase-js";
 import {
-  AlertCircle,
   ArrowUpRight,
   Check,
-  CheckCircle2,
   Eye,
   FileText,
   ImagePlus,
@@ -28,6 +26,7 @@ import {
   type Publication,
 } from "../lib/publications";
 import { supabase } from "../lib/supabase";
+import { Alert } from "../components/Alert";
 
 const MAX_FILE_SIZE = 50 * 1024 * 1024; // matches bucket file_size_limit
 const IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"];
@@ -777,29 +776,6 @@ function FileDrop({
           </>
         )}
       </label>
-    </div>
-  );
-}
-
-function Alert({
-  tone,
-  children,
-}: {
-  tone: "error" | "success";
-  children: ReactNode;
-}) {
-  const Icon = tone === "error" ? AlertCircle : CheckCircle2;
-  return (
-    <div
-      role={tone === "error" ? "alert" : "status"}
-      className={`flex items-start gap-2.5 rounded-md border px-3.5 py-3 text-sm animate-fade-in ${
-        tone === "error"
-          ? "border-accent/20 bg-accent/5 text-accent-dark"
-          : "border-emerald-200 bg-emerald-50 text-emerald-800"
-      }`}
-    >
-      <Icon className="mt-0.5 h-4 w-4 shrink-0" />
-      <span>{children}</span>
     </div>
   );
 }

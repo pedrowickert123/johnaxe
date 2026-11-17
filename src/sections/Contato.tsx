@@ -1,15 +1,40 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Phone, Mail, MapPin, type LucideIcon } from "lucide-react";
+import { Phone, Mail, MapPin, Loader2, type LucideIcon } from "lucide-react";
+import { Alert } from "../components/Alert";
+
+// ponytail: FormSubmit relays to this inbox, no backend or credentials.
+// First submission sends an "Activate Form" email to this address; nothing arrives until it's clicked.
+const FORM_ENDPOINT =
+  "https://formsubmit.co/ajax/hamilton.godinho@johnaxe.com.br";
+
+type Status = "idle" | "sending" | "sent" | "error";
 
 export function Contato() {
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<Status>("idle");
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSent(true);
-    setTimeout(() => setSent(false), 4000);
-    (e.currentTarget as HTMLFormElement).reset();
+    const form = e.currentTarget;
+    setStatus("sending");
+    try {
+      const res = await fetch(FORM_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(Object.fromEntries(new FormData(form))),
+      });
+      const data = await res.json().catch(() => null);
+      if (!res.ok || String(data?.success) !== "true") {
+        throw new Error(`contact: ${res.status}`);
+      }
+      form.reset();
+      setStatus("sent");
+    } catch {
+      setStatus("error");
+    }
   };
 
   return (
@@ -77,7 +102,7 @@ export function Contato() {
                 <div className="grid gap-5 sm:grid-cols-2">
                   <Field
                     label="Nome completo"
-                    name="nome"
+                    name="name"
                     placeholder="Seu nome completo"
                     required
                   />
@@ -90,27 +115,61 @@ export function Contato() {
                   />
                   <Field
                     label="Telefone"
-                    name="telefone"
+                    name="phone"
+                    type="tel"
                     placeholder="(00) 00000-0000"
                   />
                   <Field
                     label="Empresa"
-                    name="empresa"
+                    name="company"
                     placeholder="Nome da sua empresa"
                   />
                 </div>
                 <div>
                   <Label>Mensagem</Label>
                   <textarea
-                    name="mensagem"
+                    name="message"
                     placeholder="Descreva seu projeto ou dúvida..."
                     rows={5}
                     required
                     className="mt-2 w-full resize-none rounded-md border border-line bg-white px-4 py-3 text-sm text-navy-900 outline-none transition placeholder:text-navy-400 focus:border-accent"
                   />
                 </div>
-                <button type="submit" className="btn-accent w-full">
-                  {sent ? "Mensagem enviada" : "Enviar Mensagem"}
+                <input
+                  type="hidden"
+                  name="_subject"
+                  value="Contato pelo site John Axe"
+                />
+                <input type="hidden" name="_template" value="table" />
+                {/* Honeypot: FormSubmit drops submissions that fill it. */}
+                <input
+                  type="text"
+                  name="_honey"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  className="hidden"
+                />
+                {status === "sent" && (
+                  <Alert tone="success">
+                    Mensagem enviada. Retornaremos em breve.
+                  </Alert>
+                )}
+                {status === "error" && (
+                  <Alert tone="error">
+                    Não foi possível enviar agora. Tente novamente ou escreva
+                    para comercial@johnaxe.com.br.
+                  </Alert>
+                )}
+                <button
+                  type="submit"
+                  disabled={status === "sending"}
+                  className="btn-accent w-full disabled:opacity-60"
+                >
+                  {status === "sending" && (
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                  )}
+                  {status === "sending" ? "Enviando..." : "Enviar Mensagem"}
                 </button>
               </form>
             </div>
