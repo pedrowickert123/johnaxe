@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import logoUrl from "../assets/logo.png";
@@ -31,6 +31,17 @@ function NavLink({ label, href }: { label: string; href: string }) {
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  // Chrome Android aborts the anchor smooth scroll if it overlaps the menu's
+  // closing animation, so the scroll only starts once the menu is gone.
+  const pendingHref = useRef<string | null>(null);
+
+  function scrollToPending() {
+    const href = pendingHref.current;
+    pendingHref.current = null;
+    if (!href) return;
+    if (window.location.hash !== href) history.pushState(null, "", href);
+    document.querySelector(href)?.scrollIntoView();
+  }
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-white/5 bg-coal-900/95 backdrop-blur">
@@ -72,7 +83,7 @@ export function Navbar() {
         </button>
       </nav>
 
-      <AnimatePresence>
+      <AnimatePresence onExitComplete={scrollToPending}>
         {open && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
@@ -85,7 +96,11 @@ export function Navbar() {
                 <li key={item.href}>
                   <a
                     href={item.href}
-                    onClick={() => setOpen(false)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      pendingHref.current = item.href;
+                      setOpen(false);
+                    }}
                     className="block border-b border-white/10 py-3 text-[14px] font-medium uppercase tracking-wider text-white/80 hover:text-white"
                   >
                     {item.label}
