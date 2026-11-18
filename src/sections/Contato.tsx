@@ -68,8 +68,8 @@ export function Contato() {
               <Info
                 icon={MapPin}
                 label="Endereço"
-                value="Porto Alegre, RS, Brasil"
-                href="https://maps.google.com/?q=Porto+Alegre+RS"
+                value="Rua Tupã, 740 – Scharlau, São Leopoldo – RS, 93120-340"
+                href="https://maps.google.com/?q=Rua+Tup%C3%A3,+740,+Scharlau,+S%C3%A3o+Leopoldo,+RS,+93120-340"
               />
             </div>
 
@@ -78,8 +78,8 @@ export function Contato() {
             </h3>
             <div className="mt-4 overflow-hidden rounded-lg border border-line">
               <iframe
-                title="Mapa Porto Alegre"
-                src="https://www.google.com/maps?q=Porto+Alegre,+RS,+Brasil&output=embed&z=11"
+                title="Mapa — Rua Tupã, 740, São Leopoldo"
+                src="https://www.google.com/maps?q=Rua+Tup%C3%A3,+740,+Scharlau,+S%C3%A3o+Leopoldo,+RS,+93120-340&output=embed&z=16"
                 className="h-64 w-full"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
